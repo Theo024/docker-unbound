@@ -17,4 +17,4 @@ RUN apk add --no-cache openssl expat && \
     adduser -D -H -S -h /unbound -g "unbound" -s /sbin/nologin -G unbound unbound && \
     chown -R unbound unbound
 
-CMD ["/unbound/sbin/unbound -dd -c /unbound/etc/unbound/unbound.conf"]
+CMD ["/unbound/sbin/unbound", "-dd", "-c", "/unbound/etc/unbound/unbound.conf"]
