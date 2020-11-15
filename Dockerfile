@@ -13,8 +13,10 @@ FROM alpine:latest
 COPY --from=build /unbound /unbound
 
 RUN apk add --no-cache openssl expat && \
-    addgroup -S unbound && \
-    adduser -D -H -S -h /unbound -g "unbound" -s /sbin/nologin -G unbound unbound && \
-    chown -R unbound unbound
+    addgroup -g 500 -S unbound && \
+    adduser -u 500 -D -H -S -h /unbound -g "unbound" -s /sbin/nologin -G unbound unbound && \
+    chown -R unbound:unbound unbound
+
+USER unbound
 
 CMD ["/unbound/sbin/unbound", "-dd", "-c", "/unbound/etc/unbound/unbound.conf"]
